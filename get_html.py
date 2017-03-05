@@ -20,9 +20,16 @@ def get_html_filename(star_cn_name):
     return '%s.html' % pinyinstring
 
 
-def download(uri, save_name, filedir='download'):
+def download(uri, save_name, filedir='html_content'):
+    if not os.path.exists(filedir):
+        os.mkdir(filedir)
+    save_name = save_name.replace('/', '_')
     filename =  os.path.join(filedir, save_name)
-    order_string = u'wget %s -O %s' % (uri, filename )
+    filename = filename.replace('(', '{').replace(')','}')
+    if os.path.exists(filename):
+        print 'already download:', filename
+    order_string = u'wget %s -O %s' % (uri, filename)
+    print 'order_string:', order_string
     commands.getstatusoutput(order_string)
     
 
