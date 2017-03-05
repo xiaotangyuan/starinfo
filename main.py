@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 baidu_baike = 'baike.baidu.com/item/{star_name}'
 
 
-def get_content():
-    f = open('wenzl.html','r')
+def get_content(filename):
+    f = open(filename,'r')
     content = f.read()
     return content
 
@@ -28,7 +28,9 @@ def write_to_file(the_dict):
 
 
 if __name__ == '__main__':
-    content = get_content()
+    import sys
+    filename = sys.argv[1]
+    content = get_content(filename)
     bs = BeautifulSoup(content)
     img_url_list = get_img_url_list(bs)
     write_to_file(dict(img_url_list))
